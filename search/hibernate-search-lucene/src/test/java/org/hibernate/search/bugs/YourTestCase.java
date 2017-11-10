@@ -2,6 +2,7 @@ package org.hibernate.search.bugs;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.apache.lucene.search.Query;
@@ -25,8 +26,8 @@ public class YourTestCase extends SearchTestBase {
 	@SuppressWarnings("unchecked")
 	public void testYourBug() {
 		try ( Session s = getSessionFactory().openSession() ) {
-			YourAnnotatedEntity yourEntity1 = new YourAnnotatedEntity( 1L, "example" );
-			YourAnnotatedEntity yourEntity2 = new YourAnnotatedEntity( 2L, "test" );
+			YourAnnotatedEntity yourEntity1 = new YourAnnotatedEntity( 1L, "example", Instant.now());
+			YourAnnotatedEntity yourEntity2 = new YourAnnotatedEntity( 2L, "test", Instant.now());
 	
 			Transaction tx = s.beginTransaction();
 			s.persist( yourEntity1 );

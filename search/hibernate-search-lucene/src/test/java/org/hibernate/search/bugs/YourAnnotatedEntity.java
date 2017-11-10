@@ -1,9 +1,12 @@
 package org.hibernate.search.bugs;
 
+import java.time.Instant;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Facet;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -18,12 +21,17 @@ public class YourAnnotatedEntity {
 	@Field
 	private String name;
 
+	@Field(analyze = Analyze.NO)
+	@Facet
+	private Instant creationTimestamp;
+
 	protected YourAnnotatedEntity() {
 	}
 
-	public YourAnnotatedEntity(Long id, String name) {
+	public YourAnnotatedEntity(Long id, String name, Instant timestamp) {
 		this.id = id;
 		this.name = name;
+		creationTimestamp = timestamp;
 	}
 
 	public Long getId() {
@@ -38,4 +46,7 @@ public class YourAnnotatedEntity {
 		this.name = name;
 	}
 
+	public Instant getCreationTimestamp() {
+		return creationTimestamp;
+	}
 }
